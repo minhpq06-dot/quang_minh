@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phạm Quang Minh | Portfolio</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #07090f; /* Xanh navy cực tối / Đen */
+            --text-main: #eaeaea;
+            --text-dim: #9aa0a6;
+            --line-light: rgba(255, 255, 255, 0.12);
+            --font-serif: 'Cinzel', serif;
+            --font-sans: 'Montserrat', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6, .serif {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        a:hover {
+            opacity: 0.7;
+        }
+
+        /* Layout kiến trúc */
+        .wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            border-left: 1px solid var(--line-light);
+            border-right: 1px solid var(--line-light);
+            position: relative;
+        }
+
+        .section-divider {
+            border-bottom: 1px solid var(--line-light);
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        @media (min-width: 900px) {
+            .grid-layout.two-cols {
+                grid-template-columns: 1fr 1fr;
+            }
+            .grid-layout.three-cols {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .border-right-desktop {
+                border-right: 1px solid var(--line-light);
+            }
+        }
+
+        .pad-large { padding: 100px 5%; }
+        .pad-medium { padding: 60px 5%; }
+
+        /* Typography */
+        .title-huge {
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.1;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .title-section {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #fff;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .title-section::before {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 1px;
+            background-color: var(--line-light);
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+
+        .body-text {
+            font-weight: 300;
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-statue {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 90vh;
+            opacity: 0.4;
+            z-index: 1;
+            pointer-events: none;
+            mix-blend-mode: luminosity;
+        }
+
+        .hero-content {
+            z-index: 2;
+            background: radial-gradient(circle, rgba(7,9,15,0.7) 0%, rgba(7,9,15,0) 70%);
+            padding: 40px;
+        }
+
+        /* Numbered markers */
+        .marker {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* Quote Section (09) */
+        .quote-section {
+            position: relative;
+            text-align: center;
+            padding: 150px 5%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .quote-text {
+            font-size: clamp(2rem, 5vw, 4rem);
+            line-height: 1.3;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-transform: uppercase;
+        }
+
+        .quote-author {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            z-index: 2;
+        }
+
+        .quote-statue {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            max-width: 800px;
+            opacity: 0.15;
+            z-index: 1;
+            mix-blend-mode: overlay;
+        }
+
+        /* Audio Player Floating */
+        .audio-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            background: rgba(7, 9, 15, 0.9);
+            border: 1px solid var(--line-light);
+            padding: 15px 25px;
+            backdrop-filter: blur(10px);
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .audio-btn {
+            background: none;
+            border: 1px solid var(--line-light);
+            color: var(--text-main);
+            padding: 5px 15px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .audio-btn:hover, .audio-btn.active {
+            background: var(--text-main);
+            color: var(--bg-dark);
+        }
+
+        /* Project & Info Cards */
+        .card {
+            padding: 40px;
+        }
+        
+        .list-unstyled {
+            list-style: none;
+        }
+        
+        .list-unstyled li {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+            font-weight: 300;
+            color: var(--text-dim);
+        }
+        
+        .list-unstyled li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Player -->
+    <div class="audio-player">
+        <div id="audio-status" class="serif">Music: Paused</div>
+        <div class="audio-controls">
+            <button class="audio-btn" id="btn-track1" onclick="toggleAudio(1)">Track 1</button>
+            <button class="audio-btn" id="btn-track2" onclick="toggleAudio(2)">Track 2</button>
+            <button class="audio-btn" id="btn-playpause" onclick="playPause()">Play</button>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        
+        <!-- Hero Section -->
+        <section class="hero section-divider">
+            <img src="images/statue1.jpg" alt="Greek Statue" class="hero-statue">
+            <div class="hero-content">
+                <div class="subtitle">Sinh viên Kinh tế Quốc tế · Marketing Explorer · Digital Creator</div>
+                <h1 class="title-huge">Phạm Quang<br>Minh</h1>
+                <p class="body-text" style="max-width: 600px; margin: 30px auto; text-align: center;">
+                    Học hỏi bằng trải nghiệm. Phát triển qua thử nghiệm. Tiến bộ mỗi ngày.
+                </p>
+            </div>
+        </section>
+
+        <!-- 01 & 04: Intro & Education -->
+        <section class="grid-layout two-cols section-divider">
+            <div class="card border-right-desktop pad-medium">
+                <span class="marker">01</span>
+                <h2 class="title-section">Giới thiệu</h2>
+                <p class="body-text">Xin chào, mình là Minh!</p>
+                <p class="body-text">
+                    Sinh viên ngành Kinh tế Quốc tế tại Trường Đại học Ngoại thương (FTU). Mình có niềm yêu thích với marketing, công nghệ, sáng tạo nội dung và phát triển bản thân. Mình thích khám phá những lĩnh vực nằm ngoài phạm vi lớp học — từ thử nghiệm các chiến dịch quảng cáo, sáng tạo nội dung trên mạng xã hội đến xây dựng những dự án website và tìm hiểu cách ứng dụng công nghệ vào thực tế.
+                </p>
+                <p class="body-text">
+                    Dù xuất phát điểm không phải là một người có nền tảng lập trình chuyên sâu, mình luôn sẵn sàng học hỏi những kỹ năng mới và biến ý tưởng thành sản phẩm thực tế. Triết lý của mình: Đừng đợi đến khi biết hết mọi thứ mới bắt đầu. Hãy bắt đầu, thử nghiệm, học hỏi và tiến bộ.
+                </p>
+            </div>
+            
+            <div class="card pad-medium">
+                <span class="marker">04</span>
+                <h2 class="title-section">Học vấn</h2>
+                
+                <h3 class="serif" style="margin-bottom: 5px;">Đại học Ngoại thương (FTU)</h3>
+                <div class="subtitle">Chuyên ngành: Kinh tế Quốc tế | GPA: 3.35</div>
+                <p class="body-text">Xây dựng nền tảng về kinh tế, tư duy phân tích và cách nhìn nhận các vấn đề kinh doanh trong bối cảnh toàn cầu.</p>
+                
+                <h3 class="serif" style="margin-bottom: 5px; margin-top: 30px;">THPT Chuyên Thái Bình</h3>
+                <div class="subtitle">Chuyên Tin</div>
+                <p class="body-text">Rèn luyện tư duy logic, khả năng tự học và tiếp cận các vấn đề theo hướng có hệ thống.</p>
+
+                <h3 class="serif" style="margin-bottom: 5px; margin-top: 30px;">IELTS Academic — 7.0</h3>
+                <div class="subtitle">Reading: 8.5 | Speaking: 7.0 | Writing: 6.5 | Listening: 6.5</div>
+                
+                <h3 class="serif" style="margin-bottom: 5px; margin-top: 30px;">Marketing in Action</h3>
+                <div class="subtitle">Khóa học thực tiễn</div>
+                <p class="body-text">Tiếp cận marketing theo hướng thực tiễn, tìm hiểu khách hàng, xây dựng giả thuyết và sử dụng nghiên cứu để hỗ trợ quyết định.</p>
+            </div>
+        </section>
+
+        <!-- 03: Projects -->
+        <section class="pad-large section-divider" style="position: relative;">
+            <span class="marker">03</span>
+            <h2 class="title-section" style="justify-content: center; margin-bottom: 60px;">Dự án tiêu biểu</h2>
+            
+            <div class="grid-layout three-cols" style="border-top: 1px solid var(--line-light); border-bottom: 1px solid var(--line-light);">
+                
+                <!-- Project 1 -->
+                <div class="card border-right-desktop">
+                    <h3 class="serif" style="font-size: 1.5rem; margin-bottom: 10px;">Digital Marketing<br>cho 2K VPN</h3>
+                    <div class="subtitle">Quảng cáo · Phát triển người dùng</div>
+                    <img src="images/app-screenshot.png" alt="2K VPN" style="width: 100%; height: auto; margin-bottom: 20px; opacity: 0.8; border: 1px solid var(--line-light);" onerror="this.style.display='none'">
+                    <p class="body-text">Tham gia marketing bán thời gian, tiếp cận với hoạt động marketing thực tế. Tập trung vào Google Ads, tối ưu nội dung trang ứng dụng (ASO), và phân tích hành trình chuyển đổi người dùng.</p>
+                    <ul class="list-unstyled">
+                        <li>Khám phá Google Ads và chiến lược thu hút</li>
+                        <li>Nghiên cứu cải thiện chuyển đổi</li>
+                    </ul>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="card border-right-desktop">
+                    <h3 class="serif" style="font-size: 1.5rem; margin-bottom: 10px;">Sáng tạo nội dung<br>Video Ngắn</h3>
+                    <div class="subtitle">Video Editing · Social Media</div>
+                    <video src="videos/marketing-video.mp4" controls style="width: 100%; border: 1px solid var(--line-light); margin-bottom: 20px;" onerror="this.style.display='none'"></video>
+                    <p class="body-text">Thử nghiệm sáng tạo video ngắn trên Instagram. Quan sát cách những lựa chọn sáng tạo ảnh hưởng đến tương tác. Một video đạt hơn 160.000 lượt xem tự nhiên.</p>
+                    <ul class="list-unstyled">
+                        <li>Chỉnh sửa nhịp dựng, hook và caption</li>
+                        <li>Theo dõi tương tác và phân phối nội dung</li>
+                    </ul>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="card">
+                    <h3 class="serif" style="font-size: 1.5rem; margin-bottom: 10px;">Dự án<br>CaseMatch</h3>
+                    <div class="subtitle">Web Dev · Product Design</div>
+                    <p class="body-text">Nền tảng hỗ trợ sinh viên tìm kiếm đồng đội phù hợp khi tham gia các cuộc thi giải quyết tình huống kinh doanh (case competition). Chuyển một vấn đề thực tế thành ý tưởng sản phẩm số.</p>
+                    <ul class="list-unstyled">
+                        <li>Xây dựng luồng trải nghiệm người dùng (UX/UI)</li>
+                        <li>Khám phá ứng dụng AI trong viết mã</li>
+                        <li>Tìm hiểu cấu trúc frontend - cơ sở dữ liệu</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 02 & 05: Interests & Skills -->
+        <section class="grid-layout two-cols section-divider">
+            <div class="card border-right-desktop pad-medium">
+                <span class="marker">02 & 05</span>
+                <h2 class="title-section">Lĩnh vực & Kỹ năng</h2>
+                
+                <h3 class="serif" style="margin-top: 20px;">Digital Marketing</h3>
+                <p class="body-text">Kiến thức nền tảng, thử nghiệm quảng cáo, nghiên cứu đối thủ và phân tích hiệu quả chiến dịch dựa trên dữ liệu.</p>
+                
+                <h3 class="serif" style="margin-top: 20px;">Content Creation</h3>
+                <p class="body-text">Chỉnh sửa video, phát triển ý tưởng, thử nghiệm định dạng và tư duy kể chuyện bằng hình ảnh.</p>
+                
+                <h3 class="serif" style="margin-top: 20px;">Technology & Web</h3>
+                <p class="body-text">Ứng dụng AI, HTML/CSS, lên ý tưởng bản mẫu sản phẩm số và sử dụng công cụ tối ưu công việc.</p>
+                
+                <h3 class="serif" style="margin-top: 20px;">Personal Strengths</h3>
+                <p class="body-text">Kỷ luật, kiên trì, khả năng tự học, thích nghi và tư duy giải quyết vấn đề.</p>
+            </div>
+
+            <!-- 06: Personal Life (Gym/Sports) -->
+            <div class="card pad-medium" style="position: relative; overflow: hidden;">
+                <span class="marker">06</span>
+                <h2 class="title-section">Kỷ luật & Cuộc sống</h2>
+                <p class="body-text" style="position: relative; z-index: 2;">
+                    Kỷ luật được xây dựng qua thời gian. Gym là một phần quan trọng trong cuộc sống của mình. Với hơn 6 năm tập luyện và duy trì thói quen chạy 1.2km mỗi ngày sau các buổi tập, mình có cơ hội trải nghiệm quá trình cải thiện thể chất và xây dựng thói quen kiên trì.
+                </p>
+                <p class="body-text" style="position: relative; z-index: 2;">
+                    Bên cạnh đó, bóng đá và tinh thần thi đấu bền bỉ của Cristiano Ronaldo luôn truyền cảm hứng cho mình. Những nỗ lực nhỏ được lặp lại mỗi ngày tạo nên sự tiến bộ dài hạn — tinh thần đó được mình áp dụng vào cả học tập và công việc.
+                </p>
+            </div>
+        </section>
+
+        <!-- 09: Quote Yêu Thích -->
+        <section class="quote-section section-divider">
+            <img src="images/statue2.jpg" alt="Greek Statue Art" class="quote-statue">
+            <div>
+                <span class="marker" style="margin-bottom: 40px;">09</span>
+                <div class="serif quote-text">"You can't learn to swim by just researching the water."</div>
+                <div class="quote-author">— NOT ME</div>
+                
+                <div style="margin-top: 80px; width: 50px; height: 1px; background: var(--line-light); margin-left: auto; margin-right: auto;"></div>
+                
+                <div class="serif quote-text" style="font-size: clamp(1.5rem, 3vw, 2.5rem); margin-top: 80px;">"If today is the worst day, tomorrow can only get better."</div>
+                <div class="quote-author">— STILL NOT ME</div>
+            </div>
+        </section>
+
+        <!-- 07 & 08: Future & Contact -->
+        <section class="grid-layout two-cols">
+            <div class="card border-right-desktop pad-medium">
+                <span class="marker">07</span>
+                <h2 class="title-section">Định hướng</h2>
+                <p class="body-text">
+                    Khám phá điểm giao thoa giữa kinh tế, marketing, công nghệ và sáng tạo. Sẵn sàng đón nhận cơ hội học hỏi, hợp tác và biến những điều nằm trên giấy thành sản phẩm thực tế. Mỗi dự án là một bài học mới.
+                </p>
+            </div>
+            <div class="card pad-medium">
+                <span class="marker">08</span>
+                <h2 class="title-section">Liên hệ</h2>
+                <img src="images/avatar.jpg" alt="Avatar" style="width: 80px; height: 80px; border-radius: 50%; border: 1px solid var(--line-light); margin-bottom: 20px; object-fit: cover;" onerror="this.style.display='none'">
+                <p class="body-text" style="margin-bottom: 5px;"><strong>Email:</strong> <a href="mailto:minhpq06@gmail.com">minhpq06@gmail.com</a></p>
+                <p class="body-text" style="margin-bottom: 5px;"><strong>Phone:</strong> 0816795116</p>
+                <p class="body-text" style="margin-bottom: 5px;"><strong>Location:</strong> Hà Nội, Việt Nam</p>
+                <p class="body-text" style="margin-top: 20px;">
+                    <a href="#" style="text-decoration: underline; text-underline-offset: 4px;">LinkedIn</a> &nbsp;|&nbsp; 
+                    <a href="#" style="text-decoration: underline; text-underline-offset: 4px;">GitHub</a>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Script xử lý Audio -->
+    <script>
+        const audio1 = new Audio('audio/track1.mp3');
+        const audio2 = new Audio('audio/track2.mp3');
+        
+        let currentTrack = 0; // 0: none, 1: track1, 2: track2
+        let isPlaying = false;
+        
+        const btnTrack1 = document.getElementById('btn-track1');
+        const btnTrack2 = document.getElementById('btn-track2');
+        const btnPlayPause = document.getElementById('btn-playpause');
+        const statusText = document.getElementById('audio-status');
+
+        audio1.loop = true;
+        audio2.loop = true;
+
+        function updateUI() {
+            btnTrack1.classList.toggle('active', currentTrack === 1);
+            btnTrack2.classList.toggle('active', currentTrack === 2);
+            btnPlayPause.textContent = isPlaying ? 'Pause' : 'Play';
+            
+            if (currentTrack === 0) {
+                statusText.textContent = 'Music: Select a track';
+            } else {
+                statusText.textContent = isPlaying ? `Playing: Track ${currentTrack}` : `Paused: Track ${currentTrack}`;
+            }
+        }
+
+        function toggleAudio(trackNum) {
+            // Nếu chọn track khác với track đang chọn
+            if (currentTrack !== trackNum) {
+                // Tắt nhạc hiện tại nếu có
+                if (currentTrack === 1) audio1.pause();
+                if (currentTrack === 2) audio2.pause();
+                
+                // Đổi track và phát
+                currentTrack = trackNum;
+                if (currentTrack === 1) { audio1.currentTime = 0; audio1.play(); }
+                if (currentTrack === 2) { audio2.currentTime = 0; audio2.play(); }
+                isPlaying = true;
+            } else {
+                // Nếu click lại track đang chọn -> bỏ qua hoặc có thể xử lý logic khác
+            }
+            updateUI();
+        }
+
+        function playPause() {
+            if (currentTrack === 0) {
+                // Mặc định chọn track 1 nếu chưa chọn
+                toggleAudio(1);
+                return;
+            }
+            
+            if (isPlaying) {
+                if (currentTrack === 1) audio1.pause();
+                if (currentTrack === 2) audio2.pause();
+                isPlaying = false;
+            } else {
+                if (currentTrack === 1) audio1.play();
+                if (currentTrack === 2) audio2.play();
+                isPlaying = true;
+            }
+            updateUI();
+        }
+    </script>
+</body>
+</html>
